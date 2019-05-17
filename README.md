@@ -1,4 +1,10 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+**Cloning repository on your local machine**
+
+## To Beginners
+
+When a software is in a remote repository (roughly a folder on internet), developers need to make a copy of the files (or clone) into the local machine (your PC).
+
+To do so, one first have to have GIT installed on your computer. A brief tutorial may be find in [here](http://robotica.ufscar.br/dokuwiki/doku.php?id=software:git).
 
 When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
 
