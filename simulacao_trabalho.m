@@ -57,7 +57,7 @@ while(~isSimulationFinished)
  % nas rodas do carrinho. A função pode ser, por exemplo: 
  % wheelSpeeds = controlAction(sensorsStates);
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- wheelSpeeds = controlAction_andre(sensorsStates);
+
   %Cinemática - Não Alterar
   [robot.velP,vetorAuxiliar] = kinematics(robot,wheelSpeeds,vetorAuxiliar);
   
@@ -80,5 +80,11 @@ while(~isSimulationFinished)
   title(gca,['Simulation Time: ', num2str(tempo), 's| Real Time: ', ...
       num2str(toc)]);
   %verificar as consições de parada
-  isSimulationFinished = checkBoundaryConditions(robot,mapa,tempo,timeout);
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Espaço reservado para vocês checarem as condições de término da simulação
+% Eu sugiro uma função que aceite as variável (struct) robot, o mapa,
+% a variável tempo e timeout como argumentos, por exemplo:
+% isSimulationFinished = checkBoundaryConditions(robot,mapa,tempo,timeout);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
   end
