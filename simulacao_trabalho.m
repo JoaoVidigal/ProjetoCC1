@@ -4,16 +4,18 @@ clear all;
 close all;
 clc;
 
-%Coleta informações do robô´ a ser construído
-filename = input('Digite o nome do Arquivo, com o.txt\n','s');
+%Coleta informações do robô a ser construído
+filename = input('Digite o nome do Arquivo, com o.txt: ','s');
 
 %Configura os parâmetros do robô.
 robot = configRobot(filename);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Espaço reservado para vocês checarem a validade da construção do robô´.
+% Espaço reservado para vocês checarem a validade da construção do robô.
 % Eu sugiro uma função que aceite a variável (struct) robot como 
 % argumento, por exemplo: checkRobotValidity(robot);
+% Para mais informações sobre a struct, use o debug e analise a variável
+% robot, ou leia o código da função configRobot.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Carrega o mapa a ser utilizado
@@ -24,8 +26,8 @@ robot = configRobot(filename);
  mapa = dlmread("map.csv",";");
 
 hFigure = construirMapa(mapa);
-%Largada em [20,44] e orientação em 0
-robot.posP = [20;44;0];
+%Largada em [25,66] e orientação em 0
+robot.posP = [25;66;0];
 %%
 %definir as condições de parada
 isSimulationFinished = false;
@@ -70,13 +72,13 @@ while(~isSimulationFinished)
   
   %desenha carro
   hold on;
-  haux = desenhaRobo(robot);
-  pause(0.001);
+  haux = desenhaRobo(robot,sensorsStates);
+  pause(0.2);
   for i=1:size(haux,2)
     delete(haux(i));
   end
   title(gca,['Simulation Time: ', num2str(tempo), 's| Real Time: ', ...
       num2str(toc)]);
   %verificar as consições de parada
-  isSimulationFinished = checkBoundaryConditions(robot,tempo,timeout);
+  isSimulationFinished = checkBoundaryConditions(robot,mapa,tempo,timeout);
   end

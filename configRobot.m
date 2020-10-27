@@ -6,10 +6,12 @@ robo = struct('largura',0,'comprimento',0,'entreEixos',0,'distEixo',0,...
 if(~exist(filename,"file"))
     error('Digite o nome do arquivo corretamente');
 else
-    [header,values]=textread(filename,'%s %f','delimiter',',');
+    fid = fopen(filename,'r');
+    cell_text=textscan(fid,'%s %f','delimiter',',');
+    fclose(fid);
 end
 
-nParam = size(header,1);
+nParam = size(cell_text{1},1);
 numSenCord = nParam-6;
 if(numSenCord > 0)
     validity = mod(numSenCord,2);
@@ -20,19 +22,19 @@ end
 
 
 for i=1:6
-    switch header{i}
+    switch cell_text{1}{i}
         case {"W" "w"}
-            robo.largura = values(i);
+            robo.largura = cell_text{2}(i);
         case {"L" "l"}
-            robo.comprimento = values(i);
+            robo.comprimento = cell_text{2}(i);
         case {"b" "B"}
-            robo.entreEixos = values(i);
+            robo.entreEixos = cell_text{2}(i);
         case {"lcg"}
-            robo.distEixo = values(i);
+            robo.distEixo = cell_text{2}(i);
         case {"rw"}
-            robo.raioRoda = values(i);
+            robo.raioRoda = cell_text{2}(i);
         case {"nSen" "nsen"}
-            robo.numSensores = values(i);
+            robo.numSensores = cell_text{2}(i);
         otherwise
             error("Parametros errados na configuracao");
     end
@@ -42,8 +44,8 @@ if(~(numSenCord/2 == robo.numSensores))
     error("Numero de Sensores diferente das coordenadas");
 else
     for i=1:robo.numSensores
-        robo.posSensores(i,1) = values(2*i+5);
-        robo.posSensores(i,2) = values(2*i+6);
+        robo.posSensores(i,1) = cell_text{2}(2*i+5);
+        robo.posSensores(i,2) = cell_text{2}(2*i+6);
     end
 end
 
